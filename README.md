@@ -38,6 +38,62 @@ Paste this output to Cursor or Claude Code and it will fix the issues for you.
 
 Run `npx vibe-shield init` to create a `.cursorrules` file that reminds your AI agent to run security checks before completing tasks.
 
+Or manually add this rule to your AI tool (Claude Code, Cursor, Antigravity, etc.):
+
+```
+# Vibe Shield Security Rules
+
+Before marking a task as done, run `npx vibe-shield`. If issues are found, follow the [INSTRUCTION] provided in the output to fix them.
+
+## Security Checklist
+- [ ] No hardcoded secrets (API keys, passwords, tokens)
+- [ ] No dangerous code execution (eval, shell injection)
+- [ ] No SQL injection vulnerabilities (use parameterized queries)
+- [ ] All secrets stored in environment variables
+- [ ] HTTPS used for all external URLs
+```
+
+## Pre-commit hook
+
+Block commits that have security issues:
+
+```bash
+npx vibe-shield hook            # Install
+npx vibe-shield hook --uninstall  # Remove
+```
+
+The hook scans staged files before each commit. Bypass with `git commit --no-verify`.
+
+## MCP Server (Claude/Cursor integration)
+
+vibe-shield can run as an MCP server, allowing Claude Desktop and Cursor to call it directly.
+
+**Claude Desktop** (`~/Library/Application Support/Claude/claude_desktop_config.json`):
+```json
+{
+  "mcpServers": {
+    "vibe-shield": {
+      "command": "npx",
+      "args": ["vibe-shield", "mcp"]
+    }
+  }
+}
+```
+
+**Cursor** (`.cursor/mcp.json` in your project):
+```json
+{
+  "mcpServers": {
+    "vibe-shield": {
+      "command": "npx",
+      "args": ["vibe-shield", "mcp"]
+    }
+  }
+}
+```
+
+After setup, your AI assistant can use the `vibe_shield_scan` tool to check for security issues.
+
 ## Development
 
 ```bash
@@ -49,3 +105,4 @@ bun run build
 ## License
 
 MIT
+

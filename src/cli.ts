@@ -7,6 +7,7 @@ import {
   formatJson,
 } from "./prompter";
 import { initVibeShield } from "./init";
+import { installHook, uninstallHook } from "./hook";
 
 const VERSION = "1.1.0";
 
@@ -25,12 +26,12 @@ const colors = {
 function printBanner(): void {
   console.log(
     colors.cyan +
-      `
+    `
 ╦  ╦╦╔╗ ╔═╗  ╔═╗╦ ╦╦╔═╗╦  ╔╦╗
 ╚╗╔╝║╠╩╗║╣   ╚═╗╠═╣║║╣ ║   ║║
  ╚╝ ╩╚═╝╚═╝  ╚═╝╩ ╩╩╚═╝╩═╝═╩╝
 ` +
-      colors.reset
+    colors.reset
   );
   console.log(colors.dim + `  v${VERSION} - Security scanner for vibe coders\n` + colors.reset);
 }
@@ -47,16 +48,24 @@ function printHelp(): void {
   console.log(
     colors.green + "  init" + colors.reset + colors.dim + "          Create .cursorrules for AI agent integration" + colors.reset
   );
+  console.log(
+    colors.green + "  hook" + colors.reset + colors.dim + "          Install pre-commit hook to catch issues" + colors.reset
+  );
+  console.log(
+    colors.green + "  mcp" + colors.reset + colors.dim + "           Start MCP server for Claude/Cursor" + colors.reset
+  );
   console.log(colors.green + "  help" + colors.reset + colors.dim + "          Show this help message" + colors.reset);
   console.log(colors.green + "  version" + colors.reset + colors.dim + "       Show version number\n" + colors.reset);
 
   console.log("Options:");
-  console.log(colors.green + "  --json" + colors.reset + colors.dim + "        Output results as JSON\n" + colors.reset);
+  console.log(colors.green + "  --json" + colors.reset + colors.dim + "        Output results as JSON" + colors.reset);
+  console.log(colors.green + "  --uninstall" + colors.reset + colors.dim + "   Remove pre-commit hook (with hook command)\n" + colors.reset);
 
   console.log("Examples:");
   console.log(colors.dim + "  npx vibe-shield" + colors.reset);
   console.log(colors.dim + "  npx vibe-shield scan ./src" + colors.reset);
   console.log(colors.dim + "  npx vibe-shield scan . --json" + colors.reset);
+  console.log(colors.dim + "  npx vibe-shield hook" + colors.reset);
   console.log(colors.dim + "  npx vibe-shield init\n" + colors.reset);
 }
 
@@ -79,6 +88,38 @@ function runInit(dir: string): void {
   } else {
     console.log(colors.yellow + "! " + colors.reset + result.message);
     process.exit(0);
+  }
+}
+
+function runHook(uninstall: boolean): void {
+  printBanner();
+
+  if (uninstall) {
+    console.log(colors.yellow + "Removing pre-commit hook...\n" + colors.reset);
+    const result = uninstallHook(process.cwd());
+
+    if (result.success) {
+      console.log(colors.green + "✓ " + colors.reset + result.message);
+    } else {
+      console.log(colors.yellow + "! " + colors.reset + result.message);
+    }
+    process.exit(0);
+  }
+
+  console.log(colors.yellow + "Installing pre-commit hook...\n" + colors.reset);
+  const result = installHook(process.cwd());
+
+  if (result.success) {
+    console.log(colors.green + "✓ " + colors.reset + result.message);
+    if (result.path) {
+      console.log(colors.dim + `  Path: ${result.path}\n` + colors.reset);
+    }
+    console.log("Security issues will now be caught before each commit.");
+    console.log(colors.dim + "To bypass: git commit --no-verify\n" + colors.reset);
+    process.exit(0);
+  } else {
+    console.log(colors.yellow + "! " + colors.reset + result.message);
+    process.exit(1);
   }
 }
 
@@ -162,6 +203,14 @@ switch (command) {
     break;
   case "scan":
     runScan(targetDir, jsonFlag);
+    break;
+  case "hook":
+    runHook(args.includes("--uninstall"));
+    break;
+  case "mcp":
+    // MCP server is started via mcp-server.ts directly
+    console.log(colors.dim + "Starting MCP server... (use Ctrl+C to stop)" + colors.reset);
+    import("./mcp-server").catch(console.error);
     break;
   case "help":
   case "--help":
