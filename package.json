@@ -1,6 +1,6 @@
 {
   "name": "vibe-shield",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Security scanner for vibe coders - find and fix AI-generated security issues",
   "type": "module",
   "main": "dist/index.js",
@@ -13,7 +13,7 @@
   ],
   "scripts": {
     "dev": "bun run src/cli.ts",
-    "build": "bun build src/cli.ts --outdir dist --target node && bun build src/index.ts --outdir dist --target node && bun x tsc --emitDeclarationOnly",
+    "build": "bun build src/cli.ts --outdir dist --target node && bun build src/mcp-server.ts --outdir dist --target node && bun build src/index.ts --outdir dist --target node && bun x tsc --emitDeclarationOnly",
     "prepublishOnly": "bun run build",
     "typecheck": "tsc --noEmit",
     "test": "bun test"
@@ -28,7 +28,8 @@
     "claude",
     "devtools",
     "linter",
-    "vulnerabilities"
+    "vulnerabilities",
+    "mcp"
   ],
   "author": "",
   "license": "MIT",
@@ -42,6 +43,9 @@
   "homepage": "https://github.com/egmzy/vibe-shield#readme",
   "engines": {
     "node": ">=18.0.0"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.0"
   },
   "devDependencies": {
     "@types/bun": "latest",
