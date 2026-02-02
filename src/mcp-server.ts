@@ -11,7 +11,7 @@ import { generateSummary, generateSeveritySummary } from "./prompter";
 const server = new Server(
     {
         name: "vibe-shield",
-        version: "1.2.2",
+        version: "1.2.3",
     },
     {
         capabilities: {

@@ -1,6 +1,6 @@
 {
   "name": "vibe-shield",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "description": "Security scanner for vibe coders - find and fix AI-generated security issues",
   "type": "module",
   "main": "dist/index.js",
@@ -35,12 +35,12 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/gen-gom/vibe-shield.git"
+    "url": "git+https://github.com/gomzkov/vibe-shield.git"
   },
   "bugs": {
-    "url": "https://github.com/gen-gom/vibe-shield/issues"
+    "url": "https://github.com/gomzkov/vibe-shield/issues"
   },
-  "homepage": "https://github.com/gen-gom/vibe-shield",
+  "homepage": "https://github.com/gomzkov/vibe-shield",
   "engines": {
     "node": ">=18.0.0"
   },

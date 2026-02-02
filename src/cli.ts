@@ -9,7 +9,7 @@ import {
 import { initVibeShield } from "./init";
 import { installHook, uninstallHook } from "./hook";
 
-const VERSION = "1.2.2";
+const VERSION = "1.2.3";
 
 // Colors
 const colors = {
