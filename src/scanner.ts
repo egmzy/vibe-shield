@@ -14,6 +14,8 @@ const IGNORED_DIRS = [
   "__pycache__",
   "coverage",
   ".turbo",
+  "tests",
+  "__tests__",
 ];
 
 /**

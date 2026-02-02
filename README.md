@@ -1,5 +1,9 @@
 # vibe-shield
 
+[![npm version](https://img.shields.io/npm/v/vibe-shield.svg)](https://www.npmjs.com/package/vibe-shield)
+[![npm downloads](https://img.shields.io/npm/dm/vibe-shield.svg)](https://www.npmjs.com/package/vibe-shield)
+[![license](https://img.shields.io/npm/l/vibe-shield.svg)](https://github.com/gomzkov/vibe-shield/blob/main/LICENSE)
+
 The security layer for Vibe Coding. A single command that scans your repo and generates auto-fix prompts for Cursor and Claude Code to secure your app instantly.
 
 ## Usage

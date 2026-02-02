@@ -29,6 +29,9 @@ yarn-error.log*
 # Test coverage
 coverage/
 
+# Test fixtures
+.test-fixtures/
+
 # Bun
 bun.lockb
 
