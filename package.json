@@ -35,12 +35,12 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/egmzy/vibe-shield.git"
+    "url": "git+https://github.com/gen-gom/vibe-shield.git"
   },
   "bugs": {
-    "url": "https://github.com/egmzy/vibe-shield/issues"
+    "url": "https://github.com/gen-gom/vibe-shield/issues"
   },
-  "homepage": "https://github.com/egmzy/vibe-shield#readme",
+  "homepage": "https://github.com/gen-gom/vibe-shield",
   "engines": {
     "node": ">=18.0.0"
   },
